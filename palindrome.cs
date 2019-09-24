@@ -27,19 +27,22 @@ public class Program
       }
     }
   }
-  static bool CheckPalindrome(string input, int distanceFromCenter)
+   static bool CheckPalindrome(string input, int distanceFromCenter)
   {
     bool isPalindrome = false;
     int halfway = input.Length / 2;
     if (input[halfway + distanceFromCenter] == input[halfway - distanceFromCenter] && distanceFromCenter < halfway)
     {
       distanceFromCenter++;
+      Console.WriteLine("(in if statement) DISTANCE FROM CENTER: " + distanceFromCenter + " - IS PALINDROME: " + isPalindrome);
       CheckPalindrome(input, distanceFromCenter);
     }
-    else if (distanceFromCenter == halfway)
+    else if (distanceFromCenter == halfway && distanceFromCenter != 0)
     {
       isPalindrome = true;
     }
-    return isPalindrome;
+    Console.WriteLine("DISTANCE FROM CENTER: " + distanceFromCenter + " - IS PALINDROME: " + isPalindrome);
+      return isPalindrome;
+    
   }
 }
