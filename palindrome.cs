@@ -37,16 +37,34 @@ public class PalindromeChecker
   {
     bool isPalindrome = false;
     int halfway = input.Length / 2;
-    if (input[halfway + distanceFromCenter] == input[halfway - distanceFromCenter] && distanceFromCenter < halfway)
-    {
-      distanceFromCenter++;
-      
-      game.CheckPalindrome(game, input, distanceFromCenter);
-    }
-    else if (distanceFromCenter == halfway && distanceFromCenter != 0)
-    {
-      game.IsPalindrome = true;
-    }
     
+    if (input.Length % 2 == 0) //EVEN LENGTH
+    {
+      if (distanceFromCenter == halfway && distanceFromCenter != 0)
+      {
+        game.IsPalindrome = true;
+      }
+      else if(input[halfway + distanceFromCenter] == input[halfway - 1 - distanceFromCenter] && distanceFromCenter < halfway)
+      {
+        distanceFromCenter++;
+        game.CheckPalindrome(game, input, distanceFromCenter);
+      }
+    } else if (input.Length % 2 == 1) //ODD LENGTH
+    {
+      if (input[halfway + distanceFromCenter] == input[halfway - distanceFromCenter] && distanceFromCenter < halfway)
+      {
+        distanceFromCenter++;
+        game.CheckPalindrome(game, input, distanceFromCenter);
+      }
+      else if (distanceFromCenter == halfway && distanceFromCenter != 0)
+      {
+        game.IsPalindrome = true;
+      }
+    }
+
+
+
+
+
   }
 }
