@@ -1,14 +1,20 @@
 using System;
-public class Program
+public class PalindromeChecker
 {
+  public bool IsPalindrome;
+  public PalindromeChecker()
+  {
+    IsPalindrome = false;
+  }
   public static void Main()
   {
+    PalindromeChecker game = new PalindromeChecker();
     Console.WriteLine("Welcome to the palindrome checker!");
     Console.WriteLine("Enter a phrase to check:");
     string input = Console.ReadLine();
     int distanceFromCenter = 0;
-    bool isPalindrome = CheckPalindrome(input, distanceFromCenter);
-    if (isPalindrome)
+    game.CheckPalindrome(game, input, distanceFromCenter);
+    if (game.IsPalindrome)
     {
       Console.WriteLine("Your phrase is a palindrome!");
     }
@@ -27,22 +33,20 @@ public class Program
       }
     }
   }
-   static bool CheckPalindrome(string input, int distanceFromCenter)
+   public void CheckPalindrome(PalindromeChecker game, string input, int distanceFromCenter)
   {
     bool isPalindrome = false;
     int halfway = input.Length / 2;
     if (input[halfway + distanceFromCenter] == input[halfway - distanceFromCenter] && distanceFromCenter < halfway)
     {
       distanceFromCenter++;
-      Console.WriteLine("(in if statement) DISTANCE FROM CENTER: " + distanceFromCenter + " - IS PALINDROME: " + isPalindrome);
-      CheckPalindrome(input, distanceFromCenter);
+      
+      game.CheckPalindrome(game, input, distanceFromCenter);
     }
     else if (distanceFromCenter == halfway && distanceFromCenter != 0)
     {
-      isPalindrome = true;
+      game.IsPalindrome = true;
     }
-    Console.WriteLine("DISTANCE FROM CENTER: " + distanceFromCenter + " - IS PALINDROME: " + isPalindrome);
-      return isPalindrome;
     
   }
 }
