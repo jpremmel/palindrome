@@ -1,69 +1,59 @@
+//BACK-END CODE
+
 using System;
-public class PalindromeChecker
+
+namespace Games
 {
-  public bool IsPalindrome;
-  public PalindromeChecker()
+  class PalindromeChecker
   {
-    IsPalindrome = false;
-  }
-  public static void Main()
-  {
-    PalindromeChecker game = new PalindromeChecker();
-    Console.WriteLine("Enter a phrase to see if it's a palindrome:");
-    string input = Console.ReadLine();
-    int distanceFromCenter = 0;
-    game.CheckPalindrome(game, input, distanceFromCenter);
-    if (game.IsPalindrome)
+    private bool _isPalindrome;
+    
+    public PalindromeChecker()
     {
-      Console.WriteLine("Your phrase is a palindrome!");
-      game.offerNewGame();
+      _isPalindrome = false;
     }
-    else
+
+    public bool GetIsPalindrome()
     {
-      Console.WriteLine("Your phrase is not a palindrome.");
-      game.offerNewGame();
+      return _isPalindrome;
     }
-  }
-  public void offerNewGame()
-  {
-    Console.WriteLine("Want to check another phrase? (Enter Y / N)");
-    string newGame = Console.ReadLine();
-    if (newGame[0].ToString().ToUpper() == "Y")
+
+    public void SetIsPalindrome(bool isPalindrome)
     {
-      Main();
+      _isPalindrome = isPalindrome;
     }
-    else
+
+    public void CheckPalindrome(string input, int distanceFromCenter)
     {
-      Console.WriteLine("Goodbye.");
-    }
-  }
-   
-  public void CheckPalindrome(PalindromeChecker game, string input, int distanceFromCenter)
-  {
-    int halfway = input.Length / 2;
-    if (input.Length % 2 == 0) //EVEN LENGTH INPUT
-    {
-      if (distanceFromCenter == halfway && distanceFromCenter != 0)
+      int halfway = input.Length / 2;
+      if (input.Length % 2 == 0) //EVEN LENGTH INPUT
       {
-        game.IsPalindrome = true;
+        if (distanceFromCenter == halfway && distanceFromCenter != 0)
+        {
+          _isPalindrome = true;
+        }
+        else if(input[halfway + distanceFromCenter] == input[halfway - 1 - distanceFromCenter] && distanceFromCenter < halfway)
+        {
+          distanceFromCenter++;
+          CheckPalindrome(input, distanceFromCenter);
+        }
       }
-      else if(input[halfway + distanceFromCenter] == input[halfway - 1 - distanceFromCenter] && distanceFromCenter < halfway)
+      else if (input.Length % 2 == 1) //ODD LENGTH INPUT
       {
-        distanceFromCenter++;
-        game.CheckPalindrome(game, input, distanceFromCenter);
-      }
-    }
-    else if (input.Length % 2 == 1) //ODD LENGTH INPUT
-    {
-      if (input[halfway + distanceFromCenter] == input[halfway - distanceFromCenter] && distanceFromCenter < halfway)
-      {
-        distanceFromCenter++;
-        game.CheckPalindrome(game, input, distanceFromCenter);
-      }
-      else if (distanceFromCenter == halfway && distanceFromCenter != 0)
-      {
-        game.IsPalindrome = true;
+        if (input[halfway + distanceFromCenter] == input[halfway - distanceFromCenter] && distanceFromCenter < halfway)
+        {
+          distanceFromCenter++;
+          CheckPalindrome(input, distanceFromCenter);
+        }
+        else if (distanceFromCenter == halfway && distanceFromCenter != 0)
+        {
+          _isPalindrome = true;
+        }
       }
     }
   }
 }
+
+
+
+
